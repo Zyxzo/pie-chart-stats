@@ -9,15 +9,21 @@
 </head>
 <body>
 
-<!-- Add a container for the pie chart to apply CSS styling -->
+<!-- Background Animation -->
+<div class="backgroundAmim"></div>
+
+<h1 class="page-title">Stats</h1>
+
+<!-- Add a container for the pie charts -->
 <div class="container">
-    <canvas id="myPieChart" width="400" height="400"></canvas> <!-- Corrected ID -->
+    <canvas id="myPieChart" width="500" height="500"></canvas>
+    <canvas id="myPieChart2" width="500" height="500"></canvas>
 </div>
 
 <script>
     // Waiting for the page to load
     document.addEventListener("DOMContentLoaded", function() {
-        // The data values for inside the chart
+        // The data values for the first chart
         const labels = ["Option A", "Option B", "Option C", "Option D"];
         const data = [25, 15, 35, 25];
 
@@ -56,9 +62,13 @@
             }
         };
 
-        // Get the canvas context and create the chart
-        const ctx = document.getElementById('myPieChart').getContext('2d'); // Match the corrected ID
+        // Create the first chart
+        const ctx = document.getElementById('myPieChart').getContext('2d');
         new Chart(ctx, config);
+
+        // Create the second chart with the same configuration
+        const ctx2 = document.getElementById('myPieChart2').getContext('2d');
+        new Chart(ctx2, config);
     });
 </script>
 </body>
