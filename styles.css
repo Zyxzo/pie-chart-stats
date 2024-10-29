@@ -1,15 +1,14 @@
-/* styles.css */
-
-/* Make the canvas responsive */
-#myPieChart {
-    width: 100% !important; /* Set width to 100% of its parent */
-    height: auto !important; /* Set height to auto to maintain aspect ratio */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
 }
 
-/* Container for centering */
-.container {
-    max-width: 600px; /* Set a maximum width for the container */
-    margin: auto; /* Center the container */
-    padding: 20px; /* Optional padding */
-    text-align: center; /* Center text if needed */
+canvas {
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    width: 150px; /* Adjust as needed */
+    height: 150px; /* Adjust as needed */
 }
