@@ -15,5 +15,25 @@ body {
 }
 
 .container h1 {
-    font-size: 60px; /* Adjust this value to your desired text size */
+    font-size: 100px; /* Adjust this value to your desired text size */
+}
+
+.box-title {
+    position: absolute;
+    top: 245px; /* Distance from the top of the screen */
+    left: 40%; /* Center the text horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    text-align: center;
+    font-size: 50px;
+    color: #3624db;
+}
+
+.box2 {
+    position: absolute;
+    top: 260px; /* Distance from the top of the screen */
+    left: 60%; /* Center the text horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    text-align: center;
+    font-size: 50px;
+    color: #1fbe47;
 }
