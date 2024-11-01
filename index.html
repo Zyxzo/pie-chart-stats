@@ -1,75 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pie Chart Stats</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="styles.css"> <!-- Ensure this file exists -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats Dashboard</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Ensure this file exists -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js CDN -->
+    <style>
+        body {
+            display: flex;  
+            flex-direction: column; 
+            align-items: center; /* Center contents horizontally */
+            justify-content: center; /* Center contents vertically */
+            min-height: 100vh; /* Full height of the viewport */
+            margin: 0; /* Remove default margin */
+            animation: backgroundAnimation 30s infinite alternate; /* Apply background animation */
+        }
+
+        /* Keyframes for background animation */
+        @keyframes backgroundAnimation {
+            0% {
+                background-color: #d6eaee; /* Light pink */
+            }
+            100% {
+                background-color: #a6cee9; /* Light purple */
+            }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; /* Center text horizontally */
+            align-items: center; /* Center text vertically */
+            margin-bottom: 20px; /* Spacing below the title */
+        }
+
+        .box-container {
+            display: flex; /* Use flexbox */
+            justify-content: center; /* Center boxes horizontally */
+            margin-bottom: 20px; /* Spacing below the boxes */
+        }
+
+        .box {
+            width: 300px; /* Default width */
+            height: 300px; /* Default height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 10px solid #000;
+            margin: 100px; /* Margin between boxes */
+            font-size: 80px;
+            
+        }
+        
+
+        .controls {
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
+    <div class="container">
+        <h1>Ukentlig Salgs Data</h1>
+    </div>
 
-<!-- Background Animation -->
-<div class="backgroundAmim"></div>
+    <div class="box-container">
+        <div class="box" id="numberBox1">550</div> <!-- First Box with number -->
+        <div class="box" id="numberBox2">63</div> <!-- Second Box with number -->
+    </div> 
 
-<h1 class="page-title">Stats</h1>
+    <div>
+        <canvas id="myChart" width="2000" height="600"></canvas>
+    </div>
 
-<!-- Add a container for the pie charts -->
-<div class="container">
-    <canvas id="myPieChart" width="500" height="500"></canvas>
-    <canvas id="myPieChart2" width="500" height="500"></canvas>
-</div>
+    <script>
+        const ctx = document.getElementById('myChart');
 
-<script>
-    // Waiting for the page to load
-    document.addEventListener("DOMContentLoaded", function() {
-        // The data values for the first chart
-        const labels = ["Option A", "Option B", "Option C", "Option D"];
-        const data = [25, 15, 35, 25];
-
-        const config = {
-            type: 'pie',
+        new Chart(ctx, {
+            type: 'bar',
             data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Statistics',
-                    data: data,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+                labels: ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'],
+                datasets: [
+                    {
+                        label: 'Leads',
+                        data: [35, 45, 100, 96, 104, 115, 55], // First dataset values
+                        borderWidth: 5,
+                        backgroundColor: 'rgba(0, 0, 255, 0.5)', // Customize color
+                        borderColor: 'rgba(0, 0, 255, 1)' // Customize border color
+                    },
+                    {
+                        label: 'Signert',
+                        data: [6, 1, 11, 12, 15, 15, 3], // Second dataset values
+                        borderWidth: 5,
+                        backgroundColor: 'rgba(34, 197, 34, 0.5)', // Customize color for second dataset
+                        borderColor: 'rgba(34, 197, 34, 1)' // Customize border color for second dataset
+                    }
+                ]
             },
             options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        enabled: true
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
-        };
+        });
 
-        // Create the first chart
-        const ctx = document.getElementById('myPieChart').getContext('2d');
-        new Chart(ctx, config);
+        // Waiting for the page to load
+        document.addEventListener("DOMContentLoaded", async function() {
+            try {
+                // Fetch data from the API
+                const response = await fetch('http://localhost:3002/proxy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'auth_token': '09650371-b367-428a-8fb1-37df1f62c440',
+                        'child_api_id': 'infoskjerm'
+                    })
+                });
 
-        // Create the second chart with the same configuration
-        const ctx2 = document.getElementById('myPieChart2').getContext('2d');
-        new Chart(ctx2, config);
-    });
-</script>
+                // Check if the response is okay
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const apiData = await response.json();
+                console.log('API Response:', apiData);
+
+                // Prepare data for the chart
+                const labels = Object.keys(apiData); // Dates as labels
+                const leadsData = []; // Array to hold leads data
+
+                // Extract leads counts
+                for (const date of labels) {
+                    const entry = apiData[date]; // Get the entry for the specific date
+                    console.log(`Processing date: ${date}`, entry); // Log entry for each date
+
+                    // Check if entry is valid and contains expected properties
+                    if (entry && typeof entry.leads === 'number') {
+                        leadsData.push(entry.leads); // Push leads count if it exists
+                    } else {
+                        leadsData.push(0); // Push 0 if undefined
+                    }
+                }
+
+                console.log('Leads Data:', leadsData); // Log leads data
+
+                // Chart configuration
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const config = {
+                    type: 'bar',
+                    data: {
+                        labels: labels, // Use dates as labels
+                        datasets: [{
+                            label: 'Number of Leads',
+                            data: leadsData, // Use leads data from API
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Count of Leads'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            }
+                        }
+                    }
+                };
+
+                // Create the chart
+                new Chart(ctx, config);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,74 +1,19 @@
-/* Body styling */
 body {
-    background-color: #2E2E2E; /* Dark gray color */
-    color: #FFFFFF; /* White text for contrast */
-    font-family: Arial, sans-serif; /* Optional: Set the font family */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center contents horizontally */
+    justify-content: center; /* Center contents vertically */
+    min-height: 100vh; /* Full height of the viewport */
     margin: 0; /* Remove default margin */
-    padding: 20px; /* Optional: Add some padding */
-    position: relative; /* Make sure body is positioned */
 }
 
-/* Background Animation */
-.backgroundAmim {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh; /* Cover the full height */
-    background: #00bfff; /* Bright blue */
-    filter: blur(10px); /* Intense blur */
-    animation: animBack 15s linear infinite; /* Original speed */
-}
-
-@keyframes animBack {
-    0% { background-color: rgba(57, 154, 187, 0.5); } /* Start color */
-    50% { background-color: rgba(0, 0, 0, 0.5); } /* Mid color */
-    100% { background-color: rgba(30, 97, 119, 0.5); } /* End color */
-}
-
-/* Container for the pie charts */
 .container {
-    position: absolute; /* Use absolute positioning */
-    top: 20px; /* Position from the top */
-    right: 20px; /* Position from the right */
     display: flex;
-    flex-direction: column; /* Stack pie charts vertically */
-    align-items: center; /* Center vertically */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically, if the height allows */
+    margin-bottom: 20px; /* Spacing below the title */
 }
 
-/* Add styles for the options container */
-#options {
-    display: flex;
-    justify-content: center; /* Centers the options horizontally */
-    gap: 1rem; /* Adds space between the options */
-    padding: 1rem;
-}
-
-/* Individual option boxes */
-.option-box {
-    background-color: #333;
-    color: #FFFFFF; /* Set text color to white */
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.option-box:hover {
-    background-color: #555; /* Adds hover effect */
-}
-
-#myPieChart2 {
-    margin-top: 150px; /* Adjust this value to move it lower */
-}
-
-.page-title {
-    position: absolute; /* Use absolute positioning */
-    top: 20px; /* Distance from the top */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust to center */
-    color: #ffffff; /* Color of the title */
-    font-size: 2.5rem; /* Size of the font */
-    text-align: center; /* Center text alignment */
-    z-index: 1; /* Ensure it is above other elements */
+.container h1 {
+    font-size: 60px; /* Adjust this value to your desired text size */
 }
