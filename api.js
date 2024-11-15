@@ -5,7 +5,7 @@ const postdata = {
 };
 
 // Define the API endpoint to your local proxy server
-const apiEndpoint = 'http://localhost:3002/proxy'; // Update this line
+const apiEndpoint = 'https://aat-api.altifiber.no/api/portal/?infoskjerm'; // Update this line
 
 // Function to make the POST request
 async function sendData() {
@@ -13,9 +13,9 @@ async function sendData() {
         const response = await fetch(apiEndpoint, {
             method: 'POST', // Specify the request method
             headers: {
-                'Content-Type': 'application/json' // Set the content type to JSON
+                'Content-Type': 'application/json' 
             },
-            body: JSON.stringify(postdata) // Convert the data to a JSON string
+            body: JSON.stringify(postdata) 
         });
 
         // Check if the request was successful
@@ -34,5 +34,5 @@ async function sendData() {
     }
 }
 
-// Call the function to send data
+
 sendData();
