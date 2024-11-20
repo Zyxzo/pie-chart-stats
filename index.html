@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats Dashboard</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Ensure this file exists -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js CDN -->
+    <link rel="stylesheet" href="styles.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <style>
         body {
             display: flex;  
             flex-direction: column; 
-            align-items: center; /* Center contents horizontally */
-            justify-content: center; /* Center contents vertically */
-            min-height: 100vh; /* Full height of the viewport */
-            margin: 0; /* Remove default margin */
-            animation: backgroundAnimation 10s infinite alternate; /* Apply background animation */
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            animation: backgroundAnimation 10s infinite alternate; 
         }
 
-        /* Keyframes for background animation */
+        
         @keyframes backgroundAnimation {
             0% {
-                background-color: #d6eaee; /* Light pink */
+                background-color: #d6eaee; 
             }
             100% {
-                background-color: #a6cee9; /* Light purple */
+                background-color: #a6cee9; 
             }
         }
 
@@ -38,7 +38,7 @@
         <h1>Ukentlig Salgs Data</h1>
     </div>
 
-    
+<div class="box-wrapper">    
     <div class="box-container2">
         <div class="text-number-container"></div>
         <div class="box" id="textBoxLeads">Leads</div>
@@ -50,6 +50,7 @@
         <div class="box" id="textBoxSignert">Signert</div> 
         <div class="box" id="numberBoxSignert">63</div>
     </div> 
+</div>
 
     <div>
         <canvas id="myChart" width="2000" height="600"></canvas>
@@ -77,6 +78,12 @@
                 }
             });
         };
+
+         function autoRefresh(){
+            location.reload();
+         }
+
+         setInterval(autoRefresh, 60000);
 
         // Waiting for the page to load
         document.addEventListener("DOMContentLoaded", async function() {
@@ -132,15 +139,15 @@
                             label: 'Leads',
                             data: leads_array, // First dataset values
                             borderWidth: 5,
-                            backgroundColor: 'rgba(0, 0, 255, 0.5)', // Customize color
-                            borderColor: 'rgba(0, 0, 255, 1)' // Customize border color
+                            backgroundColor: 'rgba(0, 0, 255, 0.5)', 
+                            borderColor: 'rgba(0, 0, 255, 1)' 
                         },
                         {
                             label: 'Signert',
                             data: signert_array, // Second dataset values
                             borderWidth: 5,
-                            backgroundColor: 'rgba(34, 197, 34, 0.5)', // Customize color for second dataset
-                            borderColor: 'rgba(34, 197, 34, 1)' // Customize border color for second dataset
+                            backgroundColor: 'rgba(34, 197, 34, 0.5)', 
+                            borderColor: 'rgba(34, 197, 34, 1)' 
                         }
                     ];
 
