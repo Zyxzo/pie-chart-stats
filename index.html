@@ -30,34 +30,75 @@
         .controls {
             margin-top: 20px;
         }
+
+        .slide{
+            display: none;
+        }
+        .slide{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Ukentlig Salgs Data</h1>
+    <div id="slide1" class="slide">
+        <div class="container">
+            <h1>Ukentlig Salgs Data</h1>
+        </div>
+
+        <div class="box-wrapper">    
+            <div class="box-container2">
+                <div class="text-number-container"></div>
+                <div class="box" id="textBoxLeads">Leads</div>
+                <div class="box" id="numberBoxLeads">550</div> 
+            </div> 
+
+            <div class="box-container">
+                <div class="box" id="textBoxSignert">Signert</div> 
+                <div class="box" id="numberBoxSignert">63</div>
+            </div> 
+        </div>
+
+        <div>
+            <canvas id="myChart" width="2000" height="600"></canvas>
+        </div>
     </div>
 
-<div class="box-wrapper">    
-    <div class="box-container2">
-        <div class="text-number-container"></div>
-        <div class="box" id="textBoxLeads">Leads</div>
-        <div class="box" id="numberBoxLeads">550</div> 
-    </div> 
+    <div id="slide2" class="slide">
 
-
-    <div class="box-container">
-        <div class="box" id="textBoxSignert">Signert</div> 
-        <div class="box" id="numberBoxSignert">63</div>
-    </div> 
-</div>
-
-    <div>
-        <canvas id="myChart" width="2000" height="600"></canvas>
+        <h1> Another Slide another day</h1>
+        <p> Here will there be a 2nd slide if aint stupid</p>
     </div>
 
     <script>
+        
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        let chartInitialized = false; 
 
+        let labels = [];
+        let datasets = [];
+
+       
+        function showNextSlide() {
+            slides[currentSlide].style.display = 'none';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].style.display = 'flex';
+
+            if (currentSlide ===0 && !chartInitialized){
+                createChart(labels, datasets);
+                chartInitialized = true;
+            }    
+        }
+        
+        setInterval(showNextSlide, 15000); 
 
         function createChart (labels, datasets) {
 
@@ -111,7 +152,7 @@
                 // STATISK - må byttes ut med dynamisk i stedet
                 //const labels = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
 
-                const labels = Object.keys(apiData.visning1.historikk);
+                labels = Object.keys(apiData.visning1.historikk);
                 let leads_array = [];
                 let signert_array = [];
 
@@ -120,10 +161,9 @@
 
                 // Extract leads counts
                 for (const date of labels) {
-                    const entry = apiData.visning1.historikk[date]; // Get the entry for the specific date
+                    const entry = apiData.visning1.historikk[date]; 
 
-                    console.log(`Processing date: ${date}`, entry); // Log entry for each date
-
+                    console.log(`Processing date: ${date}`, entry); 
                     leads_array.push(entry.leads);
                     signert_array.push(entry.signert);
 
@@ -152,12 +192,12 @@
                     ];
 
                 createChart(labels, datasets);
-
+                showNextSlide();
 
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         });
     </script>
-</body>
+    </body>
 </html>
