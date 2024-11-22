@@ -113,3 +113,65 @@ body {
     font-size: 100px; 
 }
 
+#slide2 {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start; 
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+#slide2 h1 {
+    font-size: 100px;
+    margin-top: 100px; 
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.boxflex {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px; 
+}
+
+#Flex1 {
+    color: black;
+    font-size: 60px;
+    padding: 0;
+    gap: 0;
+    margin: 0;
+    align-self: flex-start; 
+}
+
+#Flex2 {
+    align-self: flex-start;
+    border: black;
+    border-radius: 20px;
+    outline: black;
+    outline-width: 10px;
+    width: 500px;
+    height: 500px;
+    background-color: #000000; 
+}
+
+#Flex3{
+    color: black;
+    font-size: 60px;
+    align-self: flex-start;
+    margin-top: 100px;
+    margin-left: 200p;
+    width: fit-content;
+    height: auto;
+
+}
+#cable{
+    display: block;
+    margin: 0 auto;
+}

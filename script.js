@@ -5,7 +5,7 @@
         let labels = [];
         let datasets = [];
 
-       
+
         function showNextSlide() {
             slides[currentSlide].style.display = 'none';
             currentSlide = (currentSlide + 1) % slides.length;
@@ -17,7 +17,7 @@
             }    
         }
         
-        setInterval(showNextSlide, 15000);
+        setInterval(showNextSlide, 30000);
         
         let chartInstance = null;
         
@@ -45,7 +45,7 @@
             location.reload();
          }
 
-         setInterval(autoRefresh, 60000);
+         setInterval(autoRefresh, 600000);
 
         // Waiting for the page to load
         document.addEventListener("DOMContentLoaded", async function() {
