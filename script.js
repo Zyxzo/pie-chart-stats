@@ -84,6 +84,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         const apiData = await response.json();
         console.log('API Response:', apiData);
 
+        // farge code live oppdatering for % dokumentert
+        const prosentValue = apiData.visning2.Prosent_fulldokumentert;
+        updateProsentBox(prosentValue);
+
+        const prosentFulldokumentert = apiData.visning2.Prosent_fulldokumentert;
+        document.getElementById('Flex2').textContent = prosentFulldokumentert;
+
         labels = Object.keys(apiData.visning1.historikk);  
         let leads_array = [];
         let signert_array = [];
@@ -134,3 +141,20 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.error('Error fetching data:', error);
     }
 });
+
+
+// farge code function
+function getDynamicColor(value) {
+    const clampedValue = Math.min(100, Math.max(0, value));
+
+   
+    const red = Math.round(255 * (1 - clampedValue / 100)); 
+    const green = Math.round(255 * (clampedValue / 100));  
+    return `rgb(${red}, ${green}, 0)`; 
+}
+
+function updateProsentBox(value) {
+    const prosentBox = document.getElementById("Flex2");
+    prosentBox.textContent = value; 
+    prosentBox.style.color = getDynamicColor(value); 
+}

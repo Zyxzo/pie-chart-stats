@@ -133,8 +133,8 @@ body {
 
 #slide2 h1 {
     font-size: 100px;
-    margin-top: 100px; 
-    margin-bottom: 20px;
+    margin-top: 5px; 
+    margin-bottom: 150px;
     text-align: center;
 }
 
@@ -155,31 +155,42 @@ body {
     padding: 0;
     gap: 0;
     margin: 0;
-    align-self: flex-start; 
+    align-self: center;
+    width: 100%; 
 }
 
 #Flex2 {
-    align-self: flex-start;
+    font-size: 180px;
+    align-self: center;
     border: black;
     border-radius: 20px;
     outline: black;
     outline-width: 10px;
     width: 500px;
-    height: 500px;
-    background-color: #000000; 
+    height: 250px;
+    background-color: #ffffff; 
+}
+
+
+#flexwrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 500px;
 }
 
 #Flex3{
+    margin-top: 300px;
     color: black;
     font-size: 60px;
     align-self: flex-start;
-    margin-top: 100px;
-    margin-left: 200p;
     width: fit-content;
-    height: auto;
-
 }
-#cable{
-    display: block;
-    margin: 0 auto;
+
+#Flex4{
+    margin-top: 300px;
+    color: black;
+    font-size: 60px;
+    align-self: flex-start;
+    width: fit-content;
 }
