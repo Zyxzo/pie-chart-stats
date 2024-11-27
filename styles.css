@@ -41,21 +41,6 @@ body {
     gap: 300px;
 }
 
-.image-container{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-right: 1100px;
-    margin-top: -200px;
-}
-
-.image-container2{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-right: -1150px;
-    margin-top: -170px;
-}
 .box-container{
     text-align: center;
     display: flex;
@@ -71,6 +56,7 @@ body {
 .box-container2 {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin-bottom: 1px;
 }
@@ -96,8 +82,8 @@ body {
 }
 
 .imgbox2{
-    width: 200px;
-    height: 150px;
+    width: 150px;
+    height: 140px;
     overflow: hidden;   
 }
 
@@ -105,6 +91,21 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.IMGwrap1 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+
+.IMGwrap2{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
 }
 
 #textBoxLeads {
@@ -115,6 +116,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 170px;
 
 }
 
@@ -138,6 +140,7 @@ body {
     color: #34A853;
     padding: 0px;
     margin: 0px;
+    margin-left: -170px;
 }
 
 
