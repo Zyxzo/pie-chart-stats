@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         // STATISK - må byttes ut med dynamisk i stedet
-        //const labels = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
+        
 
         const apiData = await response.json();
         console.log('API Response:', apiData);
