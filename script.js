@@ -18,7 +18,7 @@ function showNextSlide() {
     }    
 }
 
-setInterval(showNextSlide, 30000);
+setInterval(showNextSlide, 10000);
 
 function createChart(labels, datasets) {
     const ctx = document.getElementById('myChart');
