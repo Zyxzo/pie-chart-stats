@@ -18,7 +18,7 @@ function showNextSlide() {
     }    
 }
 
-setInterval(showNextSlide, 30000);
+setInterval(showNextSlide, 5000);
 
 function createChart(labels, datasets) {
     const ctx = document.getElementById('myChart');
@@ -61,10 +61,10 @@ function autoRefresh() {
 
 setInterval(autoRefresh, 600000);
 
-
+// Fetch data and populate the chart
 document.addEventListener("DOMContentLoaded", async function () {
     try {
-        // API DATA
+        // Fetch data from the API
         const response = await fetch('https://aat-api.altifiber.no/api/portal/?infoskjerm', {
             method: 'POST',
             headers: {
@@ -84,35 +84,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const apiData = await response.json();
         console.log('API Response:', apiData);
 
-        //Random display for flex3 og flex4
-        const visning2Entries = Object.entries(apiData.visning2).filter(
-            ([key]) => key !== "Prosent_fulldokumentert"
-        );
-
-        const firstSix = visning2Entries.slice(0,6);
-        const lastSix = visning2Entries.slice(6.12);
-
-        let currentFlex3Index = 0;
-        let currentFlex4Index = 0;
-        
-        function updateFlexContent() {
-            const [key3, value3] = firstSix[currentFlex3Index];
-            const cleanKey3 = key3.replace (/_/g, " ");
-            document.getElementById("Flex3").textContent = `${cleanKey3}: ${value3}`;
-            currentFlex3Index = (currentFlex3Index + 1) % firstSix.length;
-
-            const [key4, value4] = lastSix[currentFlex4Index];
-            const cleanKey4 = key4.replace(/_/g, " ");
-            document.getElementById("Flex4").textContent = `${cleanKey4}: ${value4}`;
-            currentFlex4Index = (currentFlex4Index + 1) % lastSix.length;
-        }
-
-        updateFlexContent();
-
-        setInterval(updateFlexContent, 10000);
-
-
-
         // farge code live oppdatering for % dokumentert
         const prosentValue = apiData.visning2.Prosent_fulldokumentert;
         updateProsentBox(prosentValue);
@@ -123,14 +94,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         labels = Object.keys(apiData.visning1.historikk);  
         let leads_array = [];
         let signert_array = [];
+
         let totalLeads = 0;
         let totalSignert = 0;
 
-      
         
         for (const date of labels) {
             const entry = apiData.visning1.historikk[date]; 
-            
+
             console.log(`Processing date: ${date}`, entry); 
             leads_array.push(entry.leads);
             signert_array.push(entry.signert);
