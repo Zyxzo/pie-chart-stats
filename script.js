@@ -59,7 +59,7 @@ function autoRefresh() {
     location.reload();
 }
 
-setInterval(autoRefresh, 600000);
+setInterval(autoRefresh, 60000);
 
 
 document.addEventListener("DOMContentLoaded", async function () {
