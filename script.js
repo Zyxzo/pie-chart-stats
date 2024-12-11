@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         updateFlexContent();
 
-        setInterval(updateFlexContent, 10000);
+        setInterval(updateFlexContent, 5000);
 
 
 
