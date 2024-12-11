@@ -84,6 +84,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const apiData = await response.json();
         console.log('API Response:', apiData);
 
+     
+
         //Random display for flex3 og flex4
         const visning2Entries = Object.entries(apiData.visning2).filter(
             ([key]) => key !== "Prosent_fulldokumentert"
@@ -106,6 +108,20 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById("Flex4").textContent = `${cleanKey4}: ${value4}`;
             currentFlex4Index = (currentFlex4Index + 1) % lastSix.length;
         }
+
+        // Data display for vising 3 slide 3
+        const message = apiData.visning3.message;
+        const title = apiData.visning3.title;
+
+        if (message && title) {
+            document.getElementById("Flex5").textContent = message;
+            document.getElementById("Flex6").textContent = title;
+        } else {
+            console.error("Message or Title is missing in visning3.");
+        }
+
+
+
 
         updateFlexContent();
 
