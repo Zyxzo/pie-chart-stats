@@ -285,7 +285,7 @@ function adjustTextSize(){
     const flex5Width = flex5.offsetWidth;
     const flex5Height = flex5.offsetHeight;
 
-    const newFontSize = Math.min(flex5Width, flex5Height) * 0.1;
+    const newFontSize = Math.min(flex5Width, flex5Height) * 0.3;
     scalingText.style.fontSize = `${newFontSize}px`;
 
     console.log("Adjusting text to fit flex5");
