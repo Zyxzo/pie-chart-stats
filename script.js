@@ -15,27 +15,18 @@ let currentFlex4Index = 0;
 let firstSix;
 let lastSix;
 
-function showNextSlide() {
-    slides[currentSlide].style.display = 'none';
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].style.display = 'flex';
-
-    if (currentSlide === 0 && !chartInitialized) {
-        createChart(labels, datasets); 
-        chartInitialized = true;
-    }    
-}
-
-
-
 
 function createChart(labels, datasets) {
     const ctx = document.getElementById('myChart');
+    console.log("Trying to make a new chart")
 
     
     if (chartInstance) {
         chartInstance.destroy();
         console.log("Previous chart destroyed.");
+        chartInstance = null;
+    } else{
+        console.log("no chart to destroy")
     }
 
     // datasets før chart creation
@@ -94,22 +85,37 @@ function createChart(labels, datasets) {
     console.log("Chart successfully created.");
 }
 
-// auto refreshing av side
+function showNextSlide() {
+    slides[currentSlide].style.display = 'none';
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].style.display = 'flex';
 
-function autoRefresh() {
-   location.reload();
-
-   /*
-   await fetchData();
-
-   drawslide1();
-   drawslide2();
-   drawslide3();
-   */
-
+    if (currentSlide === 0 && !chartInitialized) {
+        createChart(labels, datasets); 
+        chartInitialized = true;
+    }    
 }
 
-setInterval(autoRefresh, 120000);
+// henter den nye dataen og oppdaterer de 3 slidesne og oppdaterer based on timer
+
+async function refreshData() {
+    try{
+        await fetchData();
+        
+        drawslide1();
+        drawslide2();
+        drawslide3();
+        
+        console.log("Data has been deliverd -Jarvis");
+        }catch (error){
+        console.error("Sir there seems to be a problem with the data -Jarvis", error);
+        }
+
+    }
+    
+
+
+setInterval(refreshData, 10000);
 
 
 async function fetchData() {
@@ -146,6 +152,45 @@ function updateFlexContent() {
     currentFlex4Index = (currentFlex4Index + 1) % lastSix.length;
 }
 
+function drawslide1(){
+    labels = Object.keys(apiData.visning1.historikk);  
+    let leads_array = [];
+    let signert_array = [];
+    let totalLeads = 0;
+    let totalSignert = 0;
+
+    
+    for (const date of labels) {
+        const entry = apiData.visning1.historikk[date]; 
+        
+        console.log(`Processing date: ${date}`, entry); 
+        leads_array.push(entry.leads);
+        signert_array.push(entry.signert);
+
+        totalLeads += entry.leads;
+        totalSignert += entry.signert;
+    }
+
+    document.getElementById('numberBoxLeads').textContent = totalLeads;
+    document.getElementById('numberBoxSignert').textContent = totalSignert;
+
+    
+    datasets = [
+        {
+            label: 'Leads',
+            data: leads_array,
+            backgroundColor: 'rgba(18, 107, 241, 0.7)', 
+             
+        },
+        {
+            label: 'Signert',
+            data: signert_array,
+            backgroundColor: 'rgba(17, 223, 17, 0.7)', 
+            
+        }
+    ];
+
+}
 
 function drawslide2() {
     //Random display for flex3 og flex4
@@ -166,83 +211,46 @@ function drawslide2() {
     updateFlexContent();
 }
 
+// Data display for vising 3 slide 3
+function drawslide3(){
+    const message = apiData.visning3.message;
+    const title = apiData.visning3.title;
 
+    if (title) {
+        document.getElementById("Flex6").textContent = title;
+     }
+     
+     if(message){
+        updateFlex5Content(message);
+     }
+     
+     else {
+        console.error("Message or Title is missing in visning3.");
+    }
+
+}
+
+
+// venter til hele siden er updated før function skjer (kun 1 gang)
 document.addEventListener("DOMContentLoaded", async function () {
     try {
 
         await fetchData();
-        drawslide2();
-
-        /*
         drawslide1();
+        drawslide2();
         drawslide3();
-        */
 
-        setInterval(showNextSlide, 10000);
-     
+        createChart(labels,datasets);
 
-
-
-        // Data display for vising 3 slide 3
-        const message = apiData.visning3.message;
-        const title = apiData.visning3.title;
-
-        if (message && title) {
-            document.getElementById("Flex5").textContent = message;
-            document.getElementById("Flex6").textContent = title;
-        } else {
-            console.error("Message or Title is missing in visning3.");
-        }
-
-        setInterval(updateFlexContent, 5000);
-
-
-        labels = Object.keys(apiData.visning1.historikk);  
-        let leads_array = [];
-        let signert_array = [];
-        let totalLeads = 0;
-        let totalSignert = 0;
- 
-        
-        for (const date of labels) {
-            const entry = apiData.visning1.historikk[date]; 
-            
-            console.log(`Processing date: ${date}`, entry); 
-            leads_array.push(entry.leads);
-            signert_array.push(entry.signert);
-
-            totalLeads += entry.leads;
-            totalSignert += entry.signert;
-        }
-
-        document.getElementById('numberBoxLeads').textContent = totalLeads;
-        document.getElementById('numberBoxSignert').textContent = totalSignert;
-
-        
-        datasets = [
-            {
-                label: 'Leads',
-                data: leads_array,
-                backgroundColor: 'rgba(18, 107, 241, 0.7)', 
-                 
-            },
-            {
-                label: 'Signert',
-                data: signert_array,
-                backgroundColor: 'rgba(17, 223, 17, 0.7)', 
-                
-            }
-        ];
-
-        
-        createChart(labels, datasets);
-
-        
+        setInterval(showNextSlide, 20000);
+       
         showNextSlide();
 
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
+        
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
 });
 
 
@@ -261,3 +269,44 @@ function updateProsentBox(value) {
     prosentBox.textContent = value; 
     prosentBox.style.color = getDynamicColor(value); 
 }
+
+// text scaling for slide 3
+function adjustTextSize(){
+    const flex5 = document.getElementById("Flex5");
+    const scalingText = document.getElementById("scaling-text")
+    
+    if (!flex5 || !scalingText){
+        console.error("Flex 5 or scaling text element not found.");
+        return;
+    }
+    
+    scalingText.style.fontSize="10px";
+
+    const flex5Width = flex5.offsetWidth;
+    const flex5Height = flex5.offsetHeight;
+
+    const newFontSize = Math.min(flex5Width, flex5Height) * 0.1;
+    scalingText.style.fontSize = `${newFontSize}px`;
+
+    console.log("Adjusting text to fit flex5");
+}
+
+ function updateFlex5Content(newText){
+    const scalingText = document.getElementById("scaling-text");
+
+    if(!scalingText){
+        console.error("scaling-text element not found.");
+        return;
+    }
+
+    scalingText.textContent = newText;
+    adjustTextSize();
+ }
+
+ window.addEventListener("resize", adjustTextSize);
+ 
+ document.addEventListener("DOMContentLoaded", () => {
+    const exampleMessage = "hello, this is your API data!";
+    updateFlex5Content(exampleMessage); 
+});
+ 
