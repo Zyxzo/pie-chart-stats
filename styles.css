@@ -285,7 +285,7 @@ margin-top: 200px;
 
 #Flex6{
     display: flex;
-    font-size: 100px;
+    font-size: 150px;
     width: fit-content;
     height: fit-content;
     align-self: center;
@@ -312,7 +312,6 @@ margin-top: 200px;
 }
 
 #scaling-text{
-    font-size: 10px;
     text-align: center;
     word-wrap: break-word;
     max-width: 2000px;

@@ -115,7 +115,7 @@ async function refreshData() {
     
 
 
-setInterval(refreshData, 10000);
+setInterval(refreshData, 3000);
 
 
 async function fetchData() {
@@ -270,24 +270,42 @@ function updateProsentBox(value) {
     prosentBox.style.color = getDynamicColor(value); 
 }
 
+
+
 // text scaling for slide 3
-function adjustTextSize(){
+function adjustTextSize() {
     const flex5 = document.getElementById("Flex5");
-    const scalingText = document.getElementById("scaling-text")
+    const scalingText = document.getElementById("scaling-text");
     
-    if (!flex5 || !scalingText){
+
+    // || sjekker om noe er missing
+    if (!flex5 || !scalingText) {
         console.error("Flex 5 or scaling text element not found.");
         return;
     }
-    
-    scalingText.style.fontSize="10px";
+
+
+    scalingText.style.fontSize = "10px";
 
     const flex5Width = flex5.offsetWidth;
     const flex5Height = flex5.offsetHeight;
 
-    const newFontSize = Math.min(flex5Width, flex5Height) * 0.3;
-    scalingText.style.fontSize = `${newFontSize}px`;
+    
+    let fontSize = 10;
+    scalingText.style.fontSize = `${fontSize}px`;
 
+
+    // && sjekker om begge sidene er TRUE
+    while (
+        scalingText.offsetWidth < flex5Width &&
+        scalingText.offsetHeight < flex5Height
+    ) {
+        fontSize++; 
+        scalingText.style.fontSize = `${fontSize}px`;
+    }
+
+    // -1pixel for å ikke overflowe flex5
+    scalingText.style.fontSize = `${fontSize - 1}px`;
     console.log("Adjusting text to fit flex5");
 }
 
@@ -304,9 +322,4 @@ function adjustTextSize(){
  }
 
  window.addEventListener("resize", adjustTextSize);
- 
- document.addEventListener("DOMContentLoaded", () => {
-    const exampleMessage = "hello, this is your API data!";
-    updateFlex5Content(exampleMessage); 
-});
  
