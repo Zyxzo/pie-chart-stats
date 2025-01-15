@@ -115,7 +115,7 @@ async function refreshData() {
     
 
 
-setInterval(refreshData, 3000);
+setInterval(refreshData, 10000);
 
 
 async function fetchData() {
@@ -215,19 +215,29 @@ function drawslide2() {
 function drawslide3(){
     const message = apiData.visning3.message;
     const title = apiData.visning3.title;
+    const imageUrl = apiData.visning3.image;
 
     if (title) {
         document.getElementById("Flex6").textContent = title;
-     }
+    }
      
      if(message){
         updateFlex5Content(message);
      }
-     
-     else {
+     const imageElement = document.getElementById("slide3-image");
+     if (imageUrl){
+        imageElement.src = imageUrl;
+        imageElement.style.display ='block';
+
+        imageElement.onload = function() {
+            adjustTextSize();
+        };
+    } else {
         console.error("Message or Title is missing in visning3.");
     }
-
+    setTimeout(() =>{
+    adjustTextSize();    
+    }, 50);   
 }
 
 
@@ -309,6 +319,8 @@ function adjustTextSize() {
     console.log("Adjusting text to fit flex5");
 }
 
+
+// targeter diven og scaler den
  function updateFlex5Content(newText){
     const scalingText = document.getElementById("scaling-text");
 
