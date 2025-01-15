@@ -94,6 +94,7 @@ function showNextSlide() {
         createChart(labels, datasets); 
         chartInitialized = true;
     }    
+    adjustTextSize();
 }
 
 // henter den nye dataen og oppdaterer de 3 slidesne og oppdaterer based on timer
@@ -115,7 +116,7 @@ async function refreshData() {
     
 
 
-setInterval(refreshData, 10000);
+setInterval(refreshData, 5000);
 
 
 async function fetchData() {
@@ -217,25 +218,20 @@ function drawslide3(){
     const title = apiData.visning3.title;
     const imageUrl = apiData.visning3.image;
 
+
     if (title) {
         document.getElementById("Flex6").textContent = title;
     }
-     
-     if(message){
-        updateFlex5Content(message);
-     }
-     const imageElement = document.getElementById("slide3-image");
-     if (imageUrl){
+        
+        if(message){
+            updateFlex5Content(message);
+        }
+        const imageElement = document.getElementById("slide3-image");
+        if (imageUrl){
         imageElement.src = imageUrl;
         imageElement.style.display ='block';
-
-        imageElement.onload = function() {
-            adjustTextSize();
-        };
     }
-    setTimeout(() =>{
-    adjustTextSize();    
-    }, 50);   
+    adjustTextSize();  
 }
 
 
@@ -282,6 +278,9 @@ function updateProsentBox(value) {
 
 // text scaling for slide 3
 function adjustTextSize() {
+
+    console.log("Adjust text size");
+
     const flex5 = document.getElementById("Flex5");
     const scalingText = document.getElementById("scaling-text");
     
@@ -321,14 +320,16 @@ function adjustTextSize() {
 // targeter diven og scaler den
  function updateFlex5Content(newText){
     const scalingText = document.getElementById("scaling-text");
-
+    console.log("updateFlex5");
     if(!scalingText){
         console.error("scaling-text element not found.");
         return;
     }
 
     scalingText.textContent = newText;
+    console.log("Update done");
     adjustTextSize();
+
  }
 
  window.addEventListener("resize", adjustTextSize);
