@@ -232,8 +232,6 @@ function drawslide3(){
         imageElement.onload = function() {
             adjustTextSize();
         };
-    } else {
-        console.error("Message or Title is missing in visning3.");
     }
     setTimeout(() =>{
     adjustTextSize();    
