@@ -116,7 +116,7 @@ async function refreshData() {
     
 
 
-setInterval(refreshData, 5000);
+setInterval(refreshData, 15000);
 
 
 async function fetchData() {
@@ -213,26 +213,45 @@ function drawslide2() {
 }
 
 // Data display for vising 3 slide 3
-function drawslide3(){
+function drawslide3() {
     const message = apiData.visning3.message;
     const title = apiData.visning3.title;
     const imageUrl = apiData.visning3.image;
 
+    const scalingText = document.getElementById("scaling-text");
+    const flex6 = document.getElementById("Flex6"); 
+    const imageElement = document.getElementById("slide3-image");
 
-    if (title) {
-        document.getElementById("Flex6").textContent = title;
+    //skjekke om dt eksisterer
+    if (!scalingText || !flex6) {
+        console.error("scaling-text or Flex6 element not found.");
+        return;
     }
-        
-        if(message){
-            updateFlex5Content(message);
-        }
-        const imageElement = document.getElementById("slide3-image");
-        if (imageUrl){
+
+    flex6.textContent = ""; 
+
+    // message eksisterer etter trimming og ikke bare empty space
+    if (message && message.trim() !== "") {
+    
+        scalingText.textContent = message;
+        flex6.textContent = title || "";  
+    } else if (title) {
+        scalingText.textContent = title;
+    }
+
+    
+    if (imageUrl) {
         imageElement.src = imageUrl;
-        imageElement.style.display ='block';
+        imageElement.style.display = 'block';
+    } else {
+        imageElement.style.display = 'none';
     }
-    adjustTextSize();  
+
+    adjustTextSize();
 }
+
+
+
 
 
 // venter til hele siden er updated før function skjer (kun 1 gang)
