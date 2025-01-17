@@ -116,7 +116,7 @@ async function refreshData() {
     
 
 
-setInterval(refreshData, 15000);
+setInterval(refreshData, 5000);
 
 
 async function fetchData() {
