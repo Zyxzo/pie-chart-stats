@@ -208,6 +208,14 @@ function drawslide2() {
 
     const prosentFulldokumentert = apiData.visning2.Prosent_fulldokumentert;
     document.getElementById('Flex2').textContent = prosentFulldokumentert;
+
+    const flex2 = document.getElementById('Flex2'); 
+    if (flex2) {
+        // $ = sier at du vil inserte noe
+        flex2.textContent = `${prosentValue}%`; 
+    } else {
+        console.error("Flex2 element not found.");
+    }
     
     updateFlexContent();
 }

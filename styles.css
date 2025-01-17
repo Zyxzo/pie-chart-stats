@@ -93,17 +93,7 @@ body {
     object-fit: cover;
 }
 
-.imgbox3{
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-}
 
-.imgbox3 img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 .IMGwrap1 {
     display: flex;
     align-items: center;
@@ -122,8 +112,6 @@ body {
 .IMGwrap3{
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 20px;
 
 }
 
@@ -227,16 +215,18 @@ margin-top: 200px;
 }
 
 #Flex2 {
+    display: flex;
     font-size: 230px;
     align-self: center;
     border: black;
     border-radius: 20px;
     outline: black;
     outline-width: 10px;
-    width: 550px;
+    width: 1000px;
     height: 300px;
     background-color: #ffffff; 
-    margin-left: 270px;
+    margin-left: 30px;
+    justify-content: center;
 }
 
 
