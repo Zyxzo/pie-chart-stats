@@ -295,13 +295,12 @@ margin-top: 200px;
     margin-top: 50px;
    
 }
-
-@media (orientation: landscape) {
+/*@media (orientation: landscape) {
     #Flex6{
         font-size: 230px;      
     }
 }
-
+*/
 
 
 #Flex5{
